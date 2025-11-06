@@ -1,12 +1,18 @@
+<<<<<<< HEAD
 import logging
 from datetime import datetime
 import json
 
 logger = logging.getLogger(__name__)
+=======
+import numpy as np
+import pandas as pd
+>>>>>>> 9efb8b434fa410a556454ef0336551fca9b5f350
 
 class DynamicCapitalOptimizer:
     def __init__(self):
         self.allocations = {}
+<<<<<<< HEAD
         self.optimization_history = []
         self.performance_metrics = {
             'total_optimizations': 0,
@@ -93,3 +99,27 @@ class DynamicCapitalOptimizer:
             'last_optimized': self.optimization_history[-1]['timestamp'] if self.optimization_history else None,
             'performance_metrics': self.performance_metrics
         }
+=======
+        
+    def optimize_allocation(self, market_data, risk_profile):
+        # AI-driven capital optimization logic
+        strategies = ['arbitrage', 'liquidity_provision', 'yield_farming']
+        
+        # Simple optimization example - replace with ML model
+        allocations = {}
+        total_capital = risk_profile.get('total_capital', 100000)
+        
+        for strategy in strategies:
+            # Dynamic allocation based on market conditions
+            allocation = total_capital * np.random.uniform(0.1, 0.4)
+            allocations[strategy] = {
+                'amount': allocation,
+                'percentage': (allocation / total_capital) * 100
+            }
+            
+        self.allocations = allocations
+        return allocations
+    
+    def get_status(self):
+        return {'allocations': self.allocations, 'optimized': len(self.allocations) > 0}
+>>>>>>> 9efb8b434fa410a556454ef0336551fca9b5f350

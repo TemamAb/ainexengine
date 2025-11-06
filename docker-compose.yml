@@ -1,12 +1,18 @@
+<<<<<<< HEAD
 version: '3.8'
 
 services:
   app:
+=======
+services:
+  ainexus-engine:
+>>>>>>> 9efb8b434fa410a556454ef0336551fca9b5f350
     build: .
     ports:
       - "5000:5000"
     environment:
       - FLASK_ENV=production
+<<<<<<< HEAD
       - PYTHONUNBUFFERED=1
     volumes:
       - ./data:/app/data
@@ -37,3 +43,19 @@ services:
 
 volumes:
   redis_data:
+=======
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:5000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
+
+  feature-tester:
+    build:
+      context: .
+      dockerfile: Dockerfile.tester
+    depends_on:
+      ainexus-engine:
+        condition: service_healthy
+>>>>>>> 9efb8b434fa410a556454ef0336551fca9b5f350

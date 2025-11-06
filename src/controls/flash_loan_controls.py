@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 class FlashLoanControls:
     def __init__(self):
         self.max_capacity = 500000  # $500K
@@ -21,3 +22,17 @@ class FlashLoanControls:
         self.current_utilization += amount
         
         return {'approved': True, 'loan_id': len(self.active_loans), 'terms': 'Must be repaid in same transaction'}
+=======
+# flash_loan_controls - Enterprise Control System
+class flash_loan_controls.py:
+    def __init__(self):
+        self.active = True
+        self.settings = {}
+    
+    def update_settings(self, new_settings):
+        self.settings.update(new_settings)
+        return self.settings
+    
+    def get_status(self):
+        return {'active': self.active, 'settings': self.settings}
+>>>>>>> 9efb8b434fa410a556454ef0336551fca9b5f350
