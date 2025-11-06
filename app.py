@@ -1,8 +1,10 @@
-from flask import Flask, jsonify
+from flask import Flask, jsonify, request
 import os
 import time
+from src.wallet.integration import get_wallet_manager
 
 app = Flask(__name__)
+wallet_manager = get_wallet_manager()
 
 @app.route('/')
 def dashboard():
@@ -16,7 +18,10 @@ def dashboard():
             "dashboard": "/api/dashboard",
             "features": "/api/features", 
             "health": "/api/health",
-            "control_panel": "/api/control-panel"
+            "control_panel": "/api/control-panel",
+            "wallet_integration": "/api/wallet",
+            "wallet_details": "/api/wallet/details",
+            "wallet_health": "/api/wallet/health"
         }
     })
 
@@ -94,6 +99,31 @@ def control_panel_health():
         "emergency_stop": False,
         "active_strategies": 5
     })
+
+@app.route('/api/wallet')
+def wallet_integration():
+    return jsonify(wallet_manager.get_wallet_overview())
+
+@app.route('/api/wallet/details')
+def wallet_details():
+    return jsonify(wallet_manager.get_wallet_details())
+
+@app.route('/api/wallet/health')
+def wallet_health():
+    return jsonify(wallet_manager.wallet_health_check())
+
+@app.route('/api/wallet/balances')
+def wallet_balances():
+    return jsonify(wallet_manager.get_chain_balances())
+
+@app.route('/api/wallet/add', methods=['POST'])
+def add_wallet():
+    data = request.get_json()
+    if not data or 'address' not in data:
+        return jsonify({"error": "Wallet address required"}), 400
+    
+    result = wallet_manager.add_wallet(data)
+    return jsonify(result)
 
 if __name__ == '__main__':
     port = int(os.environ.get('PORT', 5000))
