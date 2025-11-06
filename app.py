@@ -11,7 +11,7 @@ active_features = 36
 @app.route('/')
 def dashboard():
     return jsonify({
-        "message": "íº€ Ainexus 36-Feature Engine - LIVE",
+        "message": "Ainexus 36-Feature Engine - LIVE",
         "status": engine_status,
         "features_active": active_features,
         "daily_target": "$250,000",
