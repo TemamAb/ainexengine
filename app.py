@@ -2,9 +2,11 @@ from flask import Flask, jsonify, request
 import os
 import time
 from src.wallet.integration import get_wallet_manager
+from src.ai.auto_optimizer import get_ai_optimizer
 
 app = Flask(__name__)
 wallet_manager = get_wallet_manager()
+ai_optimizer = get_ai_optimizer()
 
 @app.route('/')
 def dashboard():
@@ -21,7 +23,10 @@ def dashboard():
             "control_panel": "/api/control-panel",
             "wallet_integration": "/api/wallet",
             "wallet_details": "/api/wallet/details",
-            "wallet_health": "/api/wallet/health"
+            "wallet_health": "/api/wallet/health",
+            "ai_optimizer": "/api/ai/optimizer",
+            "ai_analytics": "/api/ai/analytics",
+            "ai_insights": "/api/ai/insights"
         }
     })
 
@@ -124,6 +129,24 @@ def add_wallet():
     
     result = wallet_manager.add_wallet(data)
     return jsonify(result)
+
+# AI Optimization endpoints
+@app.route('/api/ai/optimizer')
+def ai_optimizer_status():
+    return jsonify(ai_optimizer.get_optimization_status())
+
+@app.route('/api/ai/optimize', methods=['POST'])
+def run_ai_optimization():
+    result = ai_optimizer.run_optimization_cycle()
+    return jsonify(result)
+
+@app.route('/api/ai/analytics')
+def ai_optimization_analytics():
+    return jsonify(ai_optimizer.get_optimization_analytics())
+
+@app.route('/api/ai/insights')
+def ai_insights():
+    return jsonify(ai_optimizer.get_ai_insights())
 
 if __name__ == '__main__':
     port = int(os.environ.get('PORT', 5000))
