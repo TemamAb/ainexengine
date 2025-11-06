@@ -43,3 +43,22 @@ def features():
 if __name__ == '__main__':
     port = int(os.environ.get('PORT', 5000))
     app.run(host='0.0.0.0', port=port)
+
+# Import and setup control panel
+from src.controls.user_panel import setup_control_panel_routes, get_control_panel_html, control_panel
+
+# Setup control panel routes
+setup_control_panel_routes(app)
+
+@app.route('/control-panel')
+def control_panel_html():
+    """HTML Control Panel Interface"""
+    return get_control_panel_html()
+
+@app.route('/api/control-panel/strategies')
+def get_strategies():
+    """Get strategy information"""
+    return jsonify({
+        "strategies": control_panel.user_settings['strategies'],
+        "total_enabled": sum(1 for s in control_panel.user_settings['strategies'].values() if s['enabled'])
+    })
