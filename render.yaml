@@ -1,9 +1,19 @@
 services:
   - type: web
-    name: ainexus-engine
+    name: ai-nexus-dashboard
     env: python
-    buildCommand: pip install -r requirements.txt
-    startCommand: gunicorn app:app
+    plan: standard
+    region: oregon
+    buildCommand: |
+      pip install -r requirements.txt
+      python -m pip install --upgrade pip
+    startCommand: gunicorn app:app --bind 0.0.0.0:$PORT --workers 4 --threads 2 --timeout 120
     envVars:
       - key: PYTHON_VERSION
         value: 3.11.0
+      - key: FLASK_ENV
+        value: production
+      - key: RENDER
+        value: true
+    healthCheckPath: /health
+    autoDeploy: true

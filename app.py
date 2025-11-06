@@ -1,39 +1,33 @@
-from flask import Flask, jsonify
-import time
+from flask import Flask, render_template, jsonify
+import os
+from src.dashboard.live_trading import LiveTradingSystem
+from src.capital.dynamic_optimizer import DynamicCapitalOptimizer
 
 app = Flask(__name__)
 
+# Initialize core systems
+trading_system = LiveTradingSystem()
+capital_optimizer = DynamicCapitalOptimizer()
+
 @app.route('/')
-def home():
+def dashboard():
+    return render_template('dashboard.html')
+
+@app.route('/api/health')
+def health_check():
     return jsonify({
-        "message": "Ainexus Engine - AI Optimization Test",
-        "status": "running",
-        "endpoints": {
-            "health": "/health",
-            "features": "/features",
-            "ai_optimizer": "/ai/optimizer",
-            "ai_analytics": 152,
-            "average_improvement": "0.45% per cycle",
-            "best_optimization": "2.1% ROI improvement",
-            "most_improved_strategy": "Flash Loan Arbitrage"
+        'status': 'healthy',
+        'version': '1.0.0',
+        'systems': {
+            'trading': trading_system.get_status(),
+            'capital_optimizer': capital_optimizer.get_status()
         }
     })
 
-@app.route('/ai/insights')
-def ai_insights():
-    return jsonify({
-        "ai_insights": {
-            "timestamp": time.time(),
-            "market_prediction": "Volatility increase expected",
-            "opportunities": [
-                "ETH/BTC arbitrage on Binance",
-                "Gas price drop predicted", 
-                "High liquidity on Uniswap V3"
-            ],
-            "confidence": "92%"
-        }
-    })
+@app.route('/api/activate-trading', methods=['POST'])
+def activate_trading():
+    result = trading_system.activate_7_phase_system()
+    return jsonify(result)
 
 if __name__ == '__main__':
-    port = int(os.environ.get('PORT', 5000))
-    app.run(host='0.0.0.0', port=port)
+    app.run(host='0.0.0.0', port=5000, debug=False)
