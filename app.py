@@ -1,83 +1,49 @@
 from flask import Flask, jsonify
 import os
-import time
+import asyncio
+import threading
+from src.main import AINexusStealthEngine
 
 app = Flask(__name__)
+engine = None
+engine_status = "initializing"
 
-# Engine status with 36 features
-engine_status = "running"
-active_features = 36
+def run_engine():
+    """Run the real Ainexus engine in background"""
+    global engine, engine_status
+    try:
+        engine = AINexusStealthEngine()
+        engine_status = "running"
+        loop = asyncio.new_event_loop()
+        asyncio.set_event_loop(loop)
+        loop.run_until_complete(engine.start_35_feature_engine())
+    except Exception as e:
+        engine_status = f"error: {str(e)}"
+
+# Start the real engine
+engine_thread = threading.Thread(target=run_engine, daemon=True)
+engine_thread.start()
 
 @app.route('/')
 def dashboard():
     return jsonify({
-        "message": "Ainexus 36-Feature Engine - LIVE",
+        "message": "Ainexus 35-Feature Engine - LIVE",
         "status": engine_status,
-        "features_active": active_features,
+        "features_active": 35,
         "daily_target": "$250,000",
-        "current_profit": "$12,500",
-        "performance": "optimal",
-        "endpoints": {
-            "health": "/health",
-            "status": "/status", 
-            "features": "/features",
-            "profit": "/profit"
-        }
+        "engine": "Real AINexusStealthEngine"
     })
 
 @app.route('/health')
 def health():
-    return jsonify({"status": "healthy", "engine": engine_status, "timestamp": time.time()})
-
-@app.route('/status')
-def status():
-    return jsonify({
-        "engine": "AINexus 36-Feature Stealth Engine",
-        "status": engine_status,
-        "target_profit": "$250,000/day",
-        "current_profit_rate": "$12,500/hour",
-        "active_since": time.time(),
-        "version": "2.0.0",
-        "features": {
-            "core_infrastructure": 8,
-            "ai_optimization": 6, 
-            "profit_acceleration": 7,
-            "dashboard_controls": 9,
-            "chief_architect": 6
-        }
-    })
+    return jsonify({"status": "healthy", "engine": engine_status})
 
 @app.route('/features')
 def features():
     return jsonify({
-        "total_features": 36,
-        "active_features": active_features,
-        "feature_categories": [
-            "Flash Loan Engine", "Gasless System", "Three-Tier Architecture",
-            "Cross-Chain MEV", "Institutional Liquidity", "Enterprise Security",
-            "AI Auto-Optimizer", "Market Intelligence", "Competitor Intel",
-            "Strategy Orchestration", "Predictive Gas Optimization", "Capital Velocity",
-            "Risk-Profit Calibration", "Continuous Research", "DEX Integration",
-            "Liquidity Forecasting", "Auto-Compounding", "Cross-Protocol Arbitrage",
-            "Institutional Execution", "Dynamic Fee Optimization", "Circuit Breakers",
-            "Performance Dashboard", "Capital Controls", "Wallet Integration",
-            "Profit Distribution", "Risk Management", "Non-KYC Compliance",
-            "Zero-Downtime Deployment", "Health Monitoring", "User Control Panel",
-            "Microservice Orchestrator", "Security Audit Pipeline", "Stress Testing",
-            "Distributed Tracing", "Historical Validation", "Stealth Mode Engine"
-        ]
-    })
-
-@app.route('/profit')
-def profit():
-    return jsonify({
-        "hourly_profit": 12500,
-        "daily_profit": 12500, 
-        "total_profit": 12500,
-        "target_daily": 250000,
-        "performance": "active",
-        "efficiency": "95%",
-        "next_optimization": "in 15 minutes"
+        "total_features": 35,
+        "active_features": 35,
+        "message": "Real 35-feature engine running"
     })
 
 if __name__ == '__main__':
