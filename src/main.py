@@ -1,5 +1,5 @@
 """
- AI-NEXUS ENGINE - 35-FEATURE PRODUCTION DEPLOYMENT
+ AI-NEXUS ENGINE - 36-FEATURE PRODUCTION DEPLOYMENT
 COMPLETE FEATURE ACTIVATION FOR $250K/DAY PROFIT
 """
 
@@ -56,11 +56,13 @@ class FeatureManager:
             32: {"name": "Security Audit Pipeline", "module": "src.security.audit_pipeline", "class": "SecurityAuditPipeline"},
             33: {"name": "Stress Testing", "module": "src.risk.stress_testing", "class": "StressTesting"},
             34: {"name": "Distributed Tracing", "module": "src.monitoring.tracing", "class": "DistributedTracing"},
-            35: {"name": "Historical Validation", "module": "src.validation.backtesting", "class": "HistoricalBacktesting"}
+            35: {"name": "Historical Validation", "module": "src.validation.backtesting", "class": "HistoricalBacktesting"},
+            # FEATURE 36: 100% STEALTH MODE
+            36: {"name": "100% Stealth Mode", "module": "src.security.stealth_mode", "class": "StealthModeEngine"}
         }
         
     async def activate_all_features(self):
-        """Activate all 35 features"""
+        """Activate all 36 features"""
         activated_features = []
         failed_features = []
         
@@ -119,13 +121,13 @@ class AINexus35FeatureEngine:
         self.logger = logging.getLogger(__name__)
 
     async def start_35_feature_engine(self):
-        """Start engine with all 35 features"""
-        self.logger.info("ÔøΩÔøΩÔøΩ STARTING AI-NEXUS 35-FEATURE ENGINE")
+        """Start engine with all 36 features"""
+        self.logger.info("ÔøΩÔøΩÔøΩ STARTING AI-NEXUS 36-FEATURE ENGINE")
         
         # Activate all features
         activation_result = await self.feature_manager.activate_all_features()
         
-        self.logger.info(f"ÔøΩÔøΩÔøΩ FEATURE ACTIVATION: {activation_result['total_activated']}/35 features activated")
+        self.logger.info(f"ÔøΩÔøΩÔøΩ FEATURE ACTIVATION: {activation_result['total_activated']}/36 features activated")
         
         if activation_result['total_failed'] > 0:
             self.logger.warning(f"‚ö†Ô∏è {activation_result['total_failed']} features failed to activate")
@@ -220,13 +222,13 @@ class AINexus35FeatureEngine:
 
 # Production Entry Point
 async def main():
-    """Main entry point for 35-feature deployment"""
+    """Main entry point for 36-feature deployment"""
     engine = AINexus35FeatureEngine()
     
     try:
         await engine.start_35_feature_engine()
     except Exception as e:
-        engine.logger.critical(f"ÔøΩÔøΩÔøΩ FATAL ERROR IN 35-FEATURE ENGINE: {e}")
+        engine.logger.critical(f"ÔøΩÔøΩÔøΩ FATAL ERROR IN 36-FEATURE ENGINE: {e}")
         exit(1)
 
 if __name__ == "__main__":
@@ -242,7 +244,7 @@ class AINexusStealthEngine(AINexus35FeatureEngine):
         
     async def initialize_stealth_mode(self):
         """Initialize 100% stealth mode"""
-        self.logger.info("ÌµµÔ∏è  INITIALIZING STEALTH MODE ENGINE...")
+        self.logger.info("Ô∏è  INITIALIZING STEALTH MODE ENGINE...")
         
         try:
             web3_providers = self.get_web3_providers()
@@ -250,7 +252,7 @@ class AINexusStealthEngine(AINexus35FeatureEngine):
             
             # Activate maximum stealth
             stealth_result = await self.stealth_engine.activate_stealth_mode("maximum")
-            self.logger.info(f"Ì¥í STEALTH MODE ACTIVATED: {stealth_result}")
+            self.logger.info(f" STEALTH MODE ACTIVATED: {stealth_result}")
             
         except Exception as e:
             self.logger.error(f"‚ùå STEALTH MODE INITIALIZATION FAILED: {e}")
@@ -277,5 +279,5 @@ async def main():
         await engine.start_35_feature_engine()
         
     except Exception as e:
-        engine.logger.critical(f"Ì≤• FATAL ERROR: {e}")
+        engine.logger.critical(f" FATAL ERROR: {e}")
         exit(1)
