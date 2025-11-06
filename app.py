@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from flask import Flask, jsonify, request
 from datetime import datetime
 import os
@@ -25,15 +26,14 @@ class AINexusTradingSystem:
         }
     
     def activate_7_phase_system(self):
-        """7-Phase Trading Activation - PHOENIX EDITION"""
         phases = [
-            {"phase": 1, "name": "System Integrity Check", "status": "âœ… PASSED", "details": "All systems operational"},
-            {"phase": 2, "name": "Capital Allocation Verification", "status": "âœ… PASSED", "details": "$100K capital ready"},
-            {"phase": 3, "name": "Risk Parameter Validation", "status": "âœ… PASSED", "details": "Risk level: Medium"},
-            {"phase": 4, "name": "Exchange Connectivity Test", "status": "âœ… PASSED", "details": "5/5 exchanges connected"},
-            {"phase": 5, "name": "Blockchain Network Sync", "status": "âœ… PASSED", "details": "Multi-chain synchronization complete"},
-            {"phase": 6, "name": "AI Model Initialization", "status": "âœ… PASSED", "details": "Neural networks active"},
-            {"phase": 7, "name": "Live Trading Activation", "status": "âœ… COMPLETE", "details": "íº€ AI-NEXUS PHOENIX ACTIVE"}
+            {"phase": 1, "name": "System Integrity Check", "status": "PASSED", "details": "All systems operational"},
+            {"phase": 2, "name": "Capital Allocation Verification", "status": "PASSED", "details": "$100K capital ready"},
+            {"phase": 3, "name": "Risk Parameter Validation", "status": "PASSED", "details": "Risk level: Medium"},
+            {"phase": 4, "name": "Exchange Connectivity Test", "status": "PASSED", "details": "5/5 exchanges connected"},
+            {"phase": 5, "name": "Blockchain Network Sync", "status": "PASSED", "details": "Multi-chain synchronization complete"},
+            {"phase": 6, "name": "AI Model Initialization", "status": "PASSED", "details": "Neural networks active"},
+            {"phase": 7, "name": "Live Trading Activation", "status": "COMPLETE", "details": "AI-NEXUS PHOENIX ACTIVE"}
         ]
         
         self.active = True
@@ -42,11 +42,10 @@ class AINexusTradingSystem:
             'system': 'AI-NEXUS PHOENIX EDITION',
             'phases': phases,
             'timestamp': str(datetime.now()),
-            'message': 'í¾¯ ENTERPRISE TRADING SYSTEM NOW LIVE'
+            'message': 'ENTERPRISE TRADING SYSTEM NOW LIVE'
         }
     
     def optimize_capital(self, risk_level='medium'):
-        """AI-Powered Capital Optimization - PHOENIX EDITION"""
         risk_factors = {'low': 0.7, 'medium': 1.0, 'high': 1.3, 'aggressive': 1.6}
         factor = risk_factors.get(risk_level, 1.0)
         
@@ -71,16 +70,15 @@ class AINexusTradingSystem:
             'allocations': optimized
         }
 
-# Initialize the PHOENIX trading system
 phoenix_system = AINexusTradingSystem()
 
 @app.route('/')
 def dashboard():
     return jsonify({
-        'app': 'í´– AI-NEXUS INSTITUTIONAL DASHBOARD',
+        'app': 'AI-NEXUS INSTITUTIONAL DASHBOARD',
         'edition': 'PHOENIX DEPLOYMENT',
         'version': '2.0.0',
-        'status': 'í¿¢ OPERATIONAL',
+        'status': 'OPERATIONAL',
         'deployment': 'RENDER-PRODUCTION',
         'timestamp': str(datetime.now()),
         'endpoints': {
@@ -95,7 +93,7 @@ def dashboard():
 @app.route('/api/health')
 def health_check():
     return jsonify({
-        'status': 'âœ… HEALTHY',
+        'status': 'HEALTHY',
         'system': 'AI-NEXUS PHOENIX',
         'timestamp': str(datetime.now()),
         'uptime': '99.9%',
@@ -164,13 +162,11 @@ def enterprise_controls():
 
 @app.route('/api/activate-trading', methods=['POST'])
 def activate_trading():
-    """Activate the 7-Phase Trading System - PHOENIX EDITION"""
     result = phoenix_system.activate_7_phase_system()
     return jsonify(result)
 
 @app.route('/api/optimize-capital', methods=['POST'])
 def optimize_capital():
-    """AI Capital Optimization - PHOENIX EDITION"""
     data = request.get_json() or {}
     risk_level = data.get('risk_level', 'medium')
     result = phoenix_system.optimize_capital(risk_level)
@@ -178,7 +174,6 @@ def optimize_capital():
 
 @app.route('/api/performance')
 def performance_metrics():
-    """Real-time Performance Metrics - PHOENIX EDITION"""
     return jsonify({
         'performance_dashboard': 'AI-NEXUS PHOENIX LIVE METRICS',
         'today': {
@@ -201,5 +196,5 @@ def performance_metrics():
 
 if __name__ == '__main__':
     port = int(os.environ.get('PORT', 5000))
-    print(f"íº€ Starting AI-NEXUS PHOENIX Dashboard on port {port}")
+    print(f"Starting AI-NEXUS PHOENIX Dashboard on port {port}")
     app.run(host='0.0.0.0', port=port, debug=False)

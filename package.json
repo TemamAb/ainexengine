@@ -1,8 +1,0 @@
-{
-  "name": "ainexus",
-  "version": "1.0.0",
-  "scripts": {
-    "start": "python app.py",
-    "build": "pip install -r requirements.txt"
-  }
-}
