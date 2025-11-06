@@ -1,1 +1,0 @@
-services:\n  - type: web\n    name: ainexus-phoenix\n    env: python\n    plan: free\n    buildCommand: pip install -r requirements.txt\n    startCommand: python app.py
